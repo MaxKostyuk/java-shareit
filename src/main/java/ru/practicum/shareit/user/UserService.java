@@ -1,21 +1,36 @@
 package ru.practicum.shareit.user;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
 public class UserService {
+
+    private static final String USER_NOT_FOUND_TEMPLATE = "User with id %d not found";
+
+    private final UserStorage userStorage;
+
     public UserDTO create(UserDTO userDTO) {
-        return null;
+        return UserMapper.toUserDTO(userStorage.create(UserMapper.toUser(userDTO)));
     }
 
     public UserDTO getById(int id) {
-        return null;
+        User user = userStorage.getById(id)
+                .orElseThrow(new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));
+        return UserMapper.toUserDTO(user);
     }
 
     public List<UserDTO> getAll() {
-        return null;
+        return userStorage.getAll().stream().map(UserMapper::toUserDTO).collect(Collectors.toList());
+    }
+
+    public UserDTO update(UserDTO userDTO) {
+        return UserMapper.toUserDTO(userStorage.update(UserMapper.toUser(userDTO)));
     }
 
     public void delete(int id) {
-
+        userStorage.delete(id);
     }
 }
