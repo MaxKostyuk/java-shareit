@@ -20,17 +20,17 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public User create (@Valid @RequestBody User user) {
-        return userService.create(user);
+    public UserDTO create (@Valid @RequestBody UserDTO userDTO) {
+        return userService.create(userDTO);
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable @Positive int id) {
+    public UserDTO getById(@PathVariable @Positive int id) {
         return userService.getById(id);
     }
 
     @GetMapping
-    public List<User> getAll() {
+    public List<UserDTO> getAll() {
         return userService.getAll();
     }
 

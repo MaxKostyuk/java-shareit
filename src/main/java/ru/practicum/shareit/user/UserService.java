@@ -3,15 +3,15 @@ package ru.practicum.shareit.user;
 import java.util.List;
 
 public class UserService {
-    public User create(User user) {
+    public UserDTO create(UserDTO userDTO) {
         return null;
     }
 
-    public User getById(int id) {
+    public UserDTO getById(int id) {
         return null;
     }
 
-    public List<User> getAll() {
+    public List<UserDTO> getAll() {
         return null;
     }
 
