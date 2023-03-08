@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
+import ru.practicum.shareit.exception.ElementNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class UserService {
 
     public UserDTO getById(int id) {
         User user = userStorage.getById(id)
-                .orElseThrow(new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));
+                .orElseThrow(() -> new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));
         return UserMapper.toUserDTO(user);
     }
 

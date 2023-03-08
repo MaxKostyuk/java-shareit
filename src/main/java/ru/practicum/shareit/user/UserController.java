@@ -34,6 +34,13 @@ public class UserController {
         return userService.getAll();
     }
 
+    @PatchMapping("/{id}")
+    public UserDTO update(@RequestBody UserDTO userDTO, @PathVariable @Positive int id) {
+        userDTO.setId(id);
+        return userService.update(userDTO);
+    }
+
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable @Positive int id) {
         userService.delete(id);
