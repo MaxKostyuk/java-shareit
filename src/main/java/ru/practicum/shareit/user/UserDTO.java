@@ -13,6 +13,7 @@ public class UserDTO {
     private int id;
     @NotBlank
     private String name;
+    @NotBlank
     @Email
     private String email;
 

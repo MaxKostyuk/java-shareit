@@ -17,7 +17,7 @@ import java.util.List;
 @Validated
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping
     public UserDTO create (@Valid @RequestBody UserDTO userDTO) {
