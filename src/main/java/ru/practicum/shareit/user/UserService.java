@@ -20,9 +20,8 @@ public class UserService {
     }
 
     public UserDTO getById(int id) {
-        User user = userStorage.getById(id)
+        return userStorage.getById(id).map(UserMapper::toUserDTO)
                 .orElseThrow(() -> new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));
-        return UserMapper.toUserDTO(user);
     }
 
     public List<UserDTO> getAll() {

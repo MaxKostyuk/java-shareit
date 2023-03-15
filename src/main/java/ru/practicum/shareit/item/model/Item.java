@@ -16,4 +16,11 @@ public class Item {
     private String description;
     private Boolean available;
     private int ownerId;
+
+    public Item(int id, String name, String description, Boolean available) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.available = available;
+    }
 }

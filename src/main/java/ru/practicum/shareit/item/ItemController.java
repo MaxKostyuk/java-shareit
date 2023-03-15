@@ -7,6 +7,7 @@ import ru.practicum.shareit.item.dto.ItemDTO;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ItemDTO getById (@PathVariable @Positive     int id) {
+    public ItemDTO getById(@PathVariable @Positive int id) {
         return itemService.getById(id);
     }
 
@@ -36,13 +37,16 @@ public class ItemController {
 
     @GetMapping("/search")
     public List<ItemDTO> search(@RequestParam @NotBlank String text) {
+        if (text.isBlank())
+            return new ArrayList<>();
         return itemService.search(text);
     }
 
     @PatchMapping("/{id}")
-    public ItemDTO update(@RequestBody @Valid ItemDTO itemDTO, @PathVariable @Positive int id) {
+    public ItemDTO update(@RequestBody ItemDTO itemDTO, @PathVariable @Positive int id,
+                          @RequestHeader(name = "X-Sharer-User-Id") @Positive int userId) {
         itemDTO.setId(id);
-        return itemService.update(itemDTO);
+        return itemService.update(itemDTO, userId);
     }
 
 
