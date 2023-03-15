@@ -1,9 +1,12 @@
 package ru.practicum.shareit.user;
 
 import org.springframework.stereotype.Component;
+import ru.practicum.shareit.exception.ElementNotFoundException;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserStorageImpl implements UserStorage {
@@ -46,5 +49,13 @@ public class UserStorageImpl implements UserStorage {
     @Override
     public void delete(int id) {
         userMap.remove(id);
+    }
+
+    @Override
+    public boolean checkUser(int id) {
+        if (userMap.containsKey(id)) {
+            return true;
+        }
+        else throw new ElementNotFoundException(String.format("User with id %d not found", id));
     }
 }
