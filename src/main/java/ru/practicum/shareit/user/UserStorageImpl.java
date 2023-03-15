@@ -36,10 +36,10 @@ public class UserStorageImpl implements UserStorage {
 
     @Override
     public User update(User user) {
-        if(user.getName() != null)
+        if (user.getName() != null)
             userMap.get(user.getId()).setName(user.getName());
-        if(user.getEmail() != null)
-            if(userMap.values().stream().filter(u -> u.getId() != user.getId()).anyMatch(u -> u.getEmail().equals(user.getEmail())))
+        if (user.getEmail() != null)
+            if (userMap.values().stream().filter(u -> u.getId() != user.getId()).anyMatch(u -> u.getEmail().equals(user.getEmail())))
                 throw new RuntimeException();
             else
                 userMap.get(user.getId()).setEmail(user.getEmail());
@@ -55,7 +55,6 @@ public class UserStorageImpl implements UserStorage {
     public boolean checkUser(int id) {
         if (userMap.containsKey(id)) {
             return true;
-        }
-        else throw new ElementNotFoundException(String.format("User with id %d not found", id));
+        } else throw new ElementNotFoundException(String.format("User with id %d not found", id));
     }
 }
