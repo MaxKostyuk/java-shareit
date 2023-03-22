@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ItemStorageImpl implements ItemStorage {
 
     private final HashMap<Integer, Item> itemMap = new HashMap<>();
-    int idCounter = 0;
+    private int idCounter = 0;
 
     @Override
     public Item create(Item item) {
