@@ -1,41 +1,17 @@
 package ru.practicum.shareit.user.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import ru.practicum.shareit.exception.ElementNotFoundException;
-import ru.practicum.shareit.user.storage.UserStorage;
 import ru.practicum.shareit.user.dto.UserDTO;
-import ru.practicum.shareit.user.mapper.UserMapper;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
-public class UserService {
+public interface UserService {
+    UserDTO create(UserDTO userDTO);
 
-    private static final String USER_NOT_FOUND_TEMPLATE = "User with id %d not found";
+    UserDTO getById(int id);
 
-    private final UserStorage userStorage;
+    List<UserDTO> getAll();
 
-    public UserDTO create(UserDTO userDTO) {
-        return UserMapper.toUserDTO(userStorage.create(UserMapper.toUser(userDTO)));
-    }
+    UserDTO update(UserDTO userDTO);
 
-    public UserDTO getById(int id) {
-        return userStorage.getById(id).map(UserMapper::toUserDTO)
-                .orElseThrow(() -> new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));
-    }
-
-    public List<UserDTO> getAll() {
-        return userStorage.getAll().stream().map(UserMapper::toUserDTO).collect(Collectors.toList());
-    }
-
-    public UserDTO update(UserDTO userDTO) {
-        return UserMapper.toUserDTO(userStorage.update(UserMapper.toUser(userDTO)));
-    }
-
-    public void delete(int id) {
-        userStorage.delete(id);
-    }
+    void delete(int id);
 }

@@ -19,10 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
+    public static final String USER_ID = "X-Sharer-User-Id";
     private final ItemService itemService;
 
     @PostMapping
-    public ItemDTO create(@RequestBody @Valid ItemDTO itemDTO, @RequestHeader(name = "X-Sharer-User-Id") int userId) {
+    public ItemDTO create(@RequestBody @Valid ItemDTO itemDTO, @RequestHeader(name = USER_ID) int userId) {
         return itemService.create(itemDTO, userId);
     }
 
@@ -32,7 +33,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<ItemDTO> getByUser(@RequestHeader(name = "X-Sharer-User-Id") @Positive int userId) {
+    public List<ItemDTO> getByUser(@RequestHeader(name = USER_ID) @Positive int userId) {
         return itemService.getByUser(userId);
     }
 
@@ -45,7 +46,7 @@ public class ItemController {
 
     @PatchMapping("/{id}")
     public ItemDTO update(@RequestBody ItemDTO itemDTO, @PathVariable @Positive int id,
-                          @RequestHeader(name = "X-Sharer-User-Id") @Positive int userId) {
+                          @RequestHeader(name = USER_ID) @Positive int userId) {
         itemDTO.setId(id);
         return itemService.update(itemDTO, userId);
     }
