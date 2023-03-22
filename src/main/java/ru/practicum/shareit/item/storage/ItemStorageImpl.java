@@ -49,11 +49,11 @@ public class ItemStorageImpl implements ItemStorage {
         Item itemToUpdate = itemMap.get(item.getId());
         if (itemToUpdate.getOwnerId() != userId)
             throw new AccessForbiddenException();
-        if (Objects.isNull(item.getName()))
+        if (Objects.nonNull(item.getName()))
             itemToUpdate.setName(item.getName());
-        if (Objects.isNull(item.getDescription()))
+        if (Objects.nonNull(item.getDescription()))
             itemToUpdate.setDescription(item.getDescription());
-        if (Objects.isNull(item.getAvailable()))
+        if (Objects.nonNull(item.getAvailable()))
             itemToUpdate.setAvailable(item.getAvailable());
         return itemToUpdate;
     }
