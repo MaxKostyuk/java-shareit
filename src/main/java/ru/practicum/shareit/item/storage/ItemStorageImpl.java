@@ -3,10 +3,10 @@ package ru.practicum.shareit.item.storage;
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.exception.AccessForbiddenException;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item.storage.ItemStorage;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,11 +49,11 @@ public class ItemStorageImpl implements ItemStorage {
         Item itemToUpdate = itemMap.get(item.getId());
         if (itemToUpdate.getOwnerId() != userId)
             throw new AccessForbiddenException();
-        if (item.getName() != null)
+        if (Objects.isNull(item.getName()))
             itemToUpdate.setName(item.getName());
-        if (item.getDescription() != null)
+        if (Objects.isNull(item.getDescription()))
             itemToUpdate.setDescription(item.getDescription());
-        if (item.getAvailable() != null)
+        if (Objects.isNull(item.getAvailable()))
             itemToUpdate.setAvailable(item.getAvailable());
         return itemToUpdate;
     }
