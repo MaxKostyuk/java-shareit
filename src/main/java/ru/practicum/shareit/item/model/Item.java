@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
+@Builder
 public class Item {
 
     private int id;
@@ -17,10 +19,4 @@ public class Item {
     private Boolean available;
     private int ownerId;
 
-    public Item(int id, String name, String description, Boolean available) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.available = available;
-    }
 }
