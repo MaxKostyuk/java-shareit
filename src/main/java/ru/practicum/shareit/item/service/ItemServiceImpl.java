@@ -12,7 +12,7 @@ import ru.practicum.shareit.user.storage.UserStorage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
