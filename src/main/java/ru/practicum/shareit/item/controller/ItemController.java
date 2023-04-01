@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
-    public static final String USER_ID = "X-Sharer-User-Id";
+    private static final String USER_ID = "X-Sharer-User-Id";
     private final ItemService itemService;
 
     @PostMapping

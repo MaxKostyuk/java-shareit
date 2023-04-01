@@ -15,3 +15,12 @@ CREATE TABLE IF NOT EXISTS items (
     owner_id INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS bookings (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    item INTEGER NOT NULL,
+    bookerId INTEGER NOT NULL,
+    status VARCHAR(8) NOT NULL
+);
+

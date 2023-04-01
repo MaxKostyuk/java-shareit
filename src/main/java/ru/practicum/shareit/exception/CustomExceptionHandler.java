@@ -18,4 +18,9 @@ public class CustomExceptionHandler {
     public void accessForbiddenHandler(AccessForbiddenException e) {
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void itemUnavailableHandler(BadRequestException e) {
+    }
+
 }

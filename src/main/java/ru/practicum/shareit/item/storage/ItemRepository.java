@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.model.ItemShort;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             "or upper(i.description) like upper (concat('%', ?1, '%')) " +
             "and i.available = true")
     List<Item> search(String string);
+
+    ItemShort getShortById(int id);
 }
