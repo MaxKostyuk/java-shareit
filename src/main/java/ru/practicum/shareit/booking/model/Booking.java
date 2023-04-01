@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,12 +22,17 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "start_date",nullable = false)
+    @Future
+    @NotNull
+    @Column(name = "start_date", nullable = false)
     private LocalDateTime start;
-    @Column(name ="end_date", nullable = false)
+    @Future
+    @NotNull
+    @Column(name = "end_date", nullable = false)
     private LocalDateTime end;
+    @Positive
     @Column(nullable = false)
-    private Integer item;
+    private Integer itemId;
     @Column(nullable = false)
     private Integer bookerId;
     @Enumerated(EnumType.STRING)

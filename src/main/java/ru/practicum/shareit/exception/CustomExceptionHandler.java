@@ -1,6 +1,7 @@
 package ru.practicum.shareit.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,4 +24,8 @@ public class CustomExceptionHandler {
     public void itemUnavailableHandler(BadRequestException e) {
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public void methodArgumentNotValidHandler(MethodArgumentNotValidException e) {
+    }
 }
