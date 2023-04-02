@@ -2,7 +2,6 @@ package ru.practicum.shareit.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.exception.ElementNotFoundException;
 import ru.practicum.shareit.user.dto.UserDTO;
 import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.model.User;
@@ -16,8 +15,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceDbImpl implements UserService {
 
-    private static final String USER_NOT_FOUND_TEMPLATE = "User with id %d not found";
-
     private final UserRepository userRepository;
 
     @Override
@@ -27,8 +24,7 @@ public class UserServiceDbImpl implements UserService {
 
     @Override
     public UserDTO getById(int id) {
-        return userRepository.findById(id).map(UserMapper::toUserDTO)
-                .orElseThrow(() -> new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));
+        return UserMapper.toUserDTO(userRepository.getUserById(id));
     }
 
     @Override
@@ -38,7 +34,7 @@ public class UserServiceDbImpl implements UserService {
 
     @Override
     public UserDTO update(UserDTO userDTO) {
-        User userToUpdate = validateUser(userDTO.getId());
+        User userToUpdate = userRepository.getUserById(userDTO.getId());
         if(Objects.nonNull(userDTO.getName()))
             userToUpdate.setName(userDTO.getName());
         if(Objects.nonNull(userDTO.getEmail()))
@@ -51,7 +47,4 @@ public class UserServiceDbImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    private User validateUser(int id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ElementNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, id)));    }
 }
