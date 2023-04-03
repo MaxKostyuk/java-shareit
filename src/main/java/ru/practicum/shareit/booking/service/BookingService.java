@@ -9,11 +9,11 @@ import java.util.List;
 public interface BookingService {
     BookingDTO create(Booking booking);
 
-    BookingDTO acceptBooking(int id, int ownerId, boolean approved);
+    BookingDTO acceptBooking(int id, int userId, boolean approved);
 
-    List<BookingDTO> getById(int bookingId);
+    BookingDTO getById(int bookingId, int userId);
 
-    List<BookingDTO> getByBookerId(int bookerId, BookingReviewStatus state);
+    List<BookingDTO> getByBookerId(int userId, BookingReviewStatus state);
 
-    List<BookingDTO> getByOwnerId(int ownerId, BookingReviewStatus state);
+    List<BookingDTO> getByOwnerId(int userId, BookingReviewStatus state);
 }

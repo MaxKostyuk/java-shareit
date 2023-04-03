@@ -35,13 +35,14 @@ public class BookingController {
     @PatchMapping("/{id}")
     public BookingDTO acceptBooking(@PathVariable @Positive int id,
                                     @RequestParam boolean approved,
-                                    @RequestHeader(name = USER_ID) @Positive int ownerId) {
-        return bookingService.acceptBooking(id, ownerId, approved);
+                                    @RequestHeader(name = USER_ID) @Positive int userId) {
+        return bookingService.acceptBooking(id, userId, approved);
     }
 
     @GetMapping("/{bookingId}")
-    public List<BookingDTO> getById(@PathVariable @Positive int bookingId) {
-        return bookingService.getById(bookingId);
+    public BookingDTO getById(@PathVariable @Positive int bookingId,
+                              @RequestHeader(name = USER_ID) @Positive int userId) {
+        return bookingService.getById(bookingId, userId);
     }
 
     @GetMapping
@@ -52,7 +53,7 @@ public class BookingController {
 
     @GetMapping("/owner")
     public List<BookingDTO> getByOwnerId(@RequestParam(defaultValue = "ALL") BookingReviewStatus state,
-                                         @RequestHeader(name = USER_ID) @Positive int ownerId) {
-        return bookingService.getByOwnerId(ownerId, state);
+                                         @RequestHeader(name = USER_ID) @Positive int userId) {
+        return bookingService.getByOwnerId(userId, state);
     }
 }
