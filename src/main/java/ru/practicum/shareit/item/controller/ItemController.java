@@ -28,8 +28,9 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ItemDTO getById(@PathVariable @Positive int id) {
-        return itemService.getById(id);
+    public ItemDTO getById(@PathVariable @Positive int id,
+                           @RequestHeader(name = USER_ID) @Positive int userId) {
+        return itemService.getById(id, userId);
     }
 
     @GetMapping

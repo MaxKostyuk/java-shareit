@@ -91,7 +91,7 @@ public class BookingServiceImpl implements BookingService {
             case "CURRENT":
                 return bookingRepository.getCurrentByOwnerId(ownerId, time);
             case "PAST":
-                return bookingRepository.getPastByBookerId(ownerId, time);
+                return bookingRepository.getPastByOwnerId(ownerId, time);
             case "FUTURE":
                 return bookingRepository.getFutureByOwnerId(ownerId, time);
             case "WAITING":

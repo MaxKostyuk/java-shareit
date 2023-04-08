@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDTO getById(int id) {
+    public ItemDTO getById(int id, int user) {
         return itemStorage.getById(id).map(ItemMapper::toItemDTO)
                 .orElseThrow(() -> new ElementNotFoundException(String.format(ITEM_NOT_FOUND_TEMPLATE, id)));
     }
