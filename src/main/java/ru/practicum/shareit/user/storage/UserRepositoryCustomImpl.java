@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Lazy;
 import ru.practicum.shareit.exception.ElementNotFoundException;
 import ru.practicum.shareit.user.model.User;
 
-public class UserRepositoryCustomImpl implements UserRepositoryCustom{
+public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     private final UserRepository userRepository;
 

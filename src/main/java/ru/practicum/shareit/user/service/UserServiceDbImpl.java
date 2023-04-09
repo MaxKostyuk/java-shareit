@@ -35,9 +35,9 @@ public class UserServiceDbImpl implements UserService {
     @Override
     public UserDTO update(UserDTO userDTO) {
         User userToUpdate = userRepository.getUserById(userDTO.getId());
-        if(Objects.nonNull(userDTO.getName()))
+        if (Objects.nonNull(userDTO.getName()))
             userToUpdate.setName(userDTO.getName());
-        if(Objects.nonNull(userDTO.getEmail()))
+        if (Objects.nonNull(userDTO.getEmail()))
             userToUpdate.setEmail(userDTO.getEmail());
         return UserMapper.toUserDTO(userRepository.save(userToUpdate));
     }

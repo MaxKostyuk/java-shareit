@@ -22,7 +22,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void BadRequestHandler(BadRequestException e) {
+    public void badRequestHandler(BadRequestException e) {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -31,7 +31,7 @@ public class CustomExceptionHandler {
     }
 
     @ExceptionHandler(UnknownStatusException.class)
-    public ResponseEntity<ErrorMessage> unknownStatusHandler (UnknownStatusException e) {
+    public ResponseEntity<ErrorMessage> unknownStatusHandler(UnknownStatusException e) {
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

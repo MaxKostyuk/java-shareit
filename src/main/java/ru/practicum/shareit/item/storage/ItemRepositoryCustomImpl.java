@@ -10,7 +10,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
     private static final String ITEM_NOT_FOUND_TEMPLATE = "Item with id %d not found";
 
-    public ItemRepositoryCustomImpl(@Lazy ItemRepository itemRepository){
+    public ItemRepositoryCustomImpl(@Lazy ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
 
