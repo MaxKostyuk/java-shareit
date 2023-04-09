@@ -96,5 +96,11 @@ public interface BookingRepository extends JpaRepository<Booking, Integer>, Book
 
     Optional<Booking> findTopByItemIdAndStartAfterAndStatusNotOrderByStartAsc(int itemId, LocalDateTime time, BookingStatus status);
 
-    Optional<Booking> findTopByItemIdAndEndBeforeOrderByEndDesc(int itemId, LocalDateTime time);
+    Optional<Booking> findTopByItemIdAndStartBeforeOrderByEndDesc(int itemId, LocalDateTime time);
+
+    @Query(value = "select b from Booking b " +
+            "where b.bookerId = ?1 " +
+            "and b.itemId = ?2 " +
+            "and b.end < ?3")
+    List<Booking> getPastBookingsForUserAndItem(int userId, int itemId, LocalDateTime time);
 }

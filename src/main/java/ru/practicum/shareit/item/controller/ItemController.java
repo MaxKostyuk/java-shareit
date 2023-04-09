@@ -2,12 +2,15 @@ package ru.practicum.shareit.item.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.comment.Comment;
+import ru.practicum.shareit.item.comment.CommentDTO;
 import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.item.dto.ItemDTO;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,5 +55,13 @@ public class ItemController {
         return itemService.update(itemDTO, userId);
     }
 
-
+    @PostMapping("/{id}/comment")
+    public CommentDTO addComment(@PathVariable @Positive int id,
+                                  @RequestHeader(name = USER_ID) @Positive int userId,
+                                  @RequestBody @Valid Comment comment) {
+        comment.setItem(id);
+        comment.setAuthor(userId);
+        comment.setCreated(LocalDateTime.now());
+        return itemService.addComment(comment);
+    }
 }

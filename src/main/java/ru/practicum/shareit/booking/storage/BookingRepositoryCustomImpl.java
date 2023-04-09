@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Lazy;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exception.ElementNotFoundException;
 
+import java.time.LocalDateTime;
+
 public class BookingRepositoryCustomImpl implements BookingRepositoryCustom {
 
     private final BookingRepository bookingRepository;
@@ -18,5 +20,10 @@ public class BookingRepositoryCustomImpl implements BookingRepositoryCustom {
     public Booking getBookingById(int id) {
         return bookingRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(String.format(BOOKING_NOT_FOUND_TEMPLATE, id)));
+    }
+
+    @Override
+    public boolean checkBookingForComments(int userId, int itemId) {
+        return !bookingRepository.getPastBookingsForUserAndItem(userId, itemId, LocalDateTime.now()).isEmpty();
     }
 }

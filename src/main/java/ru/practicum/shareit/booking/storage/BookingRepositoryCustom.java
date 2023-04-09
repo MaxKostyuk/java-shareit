@@ -6,4 +6,6 @@ public interface BookingRepositoryCustom {
 
     Booking getBookingById(int id);
 
+    boolean checkBookingForComments(int userId, int itemId);
+
 }
