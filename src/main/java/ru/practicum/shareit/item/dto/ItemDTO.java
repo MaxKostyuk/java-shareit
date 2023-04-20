@@ -2,15 +2,10 @@ package ru.practicum.shareit.item.dto;
 
 import lombok.Data;
 import ru.practicum.shareit.booking.dto.BookingShortDTO;
-import ru.practicum.shareit.item.comment.CommentDTO;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-
-/**
- * TODO Sprint add-controllers.
- */
 
 @Data
 public class ItemDTO {

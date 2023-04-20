@@ -11,10 +11,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
-/**
- * TODO Sprint add-bookings.
- */
-
 @Validated
 @RestController
 @RequiredArgsConstructor
