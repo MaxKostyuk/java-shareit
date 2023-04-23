@@ -32,3 +32,10 @@ CREATE TABLE IF NOT EXISTS comments (
     created DATE NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS item_request (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    description VARCHAR NOT NULL,
+    created DATE NOT NULL
+);
+
