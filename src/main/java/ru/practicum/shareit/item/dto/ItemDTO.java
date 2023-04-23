@@ -1,16 +1,12 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.practicum.shareit.booking.dto.BookingShortDTO;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
-
-@AllArgsConstructor
 @Data
 public class ItemDTO {
 
@@ -21,4 +17,14 @@ public class ItemDTO {
     private String description;
     @NotNull
     private Boolean available;
+    private BookingShortDTO lastBooking;
+    private BookingShortDTO nextBooking;
+    private List<CommentDTO> comments;
+
+    public ItemDTO(int id, String name, String description, Boolean available) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.available = available;
+    }
 }

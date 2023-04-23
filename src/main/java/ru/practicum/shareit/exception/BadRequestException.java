@@ -3,9 +3,9 @@ package ru.practicum.shareit.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class ElementNotFoundException extends RuntimeException {
+public class BadRequestException extends RuntimeException {
 
-    public ElementNotFoundException(String message) {
+    public BadRequestException(String message) {
         super(message);
     }
 }
