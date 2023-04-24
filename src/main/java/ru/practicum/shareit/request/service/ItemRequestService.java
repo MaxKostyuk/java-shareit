@@ -12,5 +12,5 @@ public interface ItemRequestService {
 
     List<ItemRequestDTO> getOtherRequests(int userId, int from, int size);
 
-    ItemRequestDTO getRequest(int id);
+    ItemRequestDTO getRequest(int id, int userId);
 }

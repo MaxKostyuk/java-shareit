@@ -2,6 +2,7 @@ package ru.practicum.shareit.request.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.item.storage.ItemRepository;
 import ru.practicum.shareit.request.dto.ItemRequestDTO;
 import ru.practicum.shareit.request.mapper.ItemRequestMapper;
 import ru.practicum.shareit.request.model.ItemRequest;
@@ -16,6 +17,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     private final ItemRequestRepository itemRequestRepository;
     private final UserRepository userRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     public ItemRequestDTO create(ItemRequest itemRequest) {
@@ -25,7 +27,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     public List<ItemRequestDTO> getUserRequests(int userId) {
-        return null;
+        userRepository.getUserById(userId);
+        List<ItemRequestDTO> requests = itemRequestRepository.getUserRequests(userId);
+        for (ItemRequestDTO request : requests)
+            request.setItems(itemRepository.getItemsByRequestId(request.getId()));
+        return requests;
     }
 
     @Override
@@ -34,7 +40,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
-    public ItemRequestDTO getRequest(int id) {
-        return ItemRequestMapper.toItemRequestDTO(itemRequestRepository.getItemRequestById(id));
+    public ItemRequestDTO getRequest(int id, int userId) {
+        userRepository.getUserById(userId);
+        ItemRequest itemRequestById = itemRequestRepository.getItemRequestById(id);
+        ItemRequestDTO request = ItemRequestMapper.toItemRequestDTO(itemRequestById);
+        request.setItems(itemRepository.getItemsByRequestId(id));
+        return request;
     }
 }

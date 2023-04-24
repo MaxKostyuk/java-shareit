@@ -3,6 +3,7 @@ package ru.practicum.shareit.item.storage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import ru.practicum.shareit.item.dto.ItemDTO;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.model.ItemShort;
 
@@ -20,4 +21,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, ItemReposi
     List<Item> search(String string);
 
     ItemShort getShortById(int id);
+
+    @Query("select  new ru.practicum.shareit.item.dto.ItemDTO(i.id, i.name, i.description, i.available, i.requestId) " +
+            "from Item as i " +
+            "where i.requestId = ?1 " +
+            "order by i.id")
+    List<ItemDTO> getItemsByRequestId(int requestId);
 }

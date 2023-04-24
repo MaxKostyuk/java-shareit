@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS items (
     item_name VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
     available BOOLEAN NOT NULL,
-    owner_id INTEGER NOT NULL
+    owner_id INTEGER NOT NULL,
+    request_id INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS bookings (
