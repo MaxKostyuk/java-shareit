@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.request.model.ItemRequest;
 
 @Repository
-public interface ItemRequestRepository extends JpaRepository<ItemRequest, Integer> {
+public interface ItemRequestRepository extends JpaRepository<ItemRequest, Integer>, ItemRequestRepositoryCustom {
 }

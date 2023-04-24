@@ -35,6 +35,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     public ItemRequestDTO getRequest(int id) {
-        return null;
+        return ItemRequestMapper.toItemRequestDTO(itemRequestRepository.getItemRequestById(id));
     }
 }
