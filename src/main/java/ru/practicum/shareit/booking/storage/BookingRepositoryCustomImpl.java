@@ -24,6 +24,6 @@ public class BookingRepositoryCustomImpl implements BookingRepositoryCustom {
 
     @Override
     public boolean checkBookingForComments(int userId, int itemId) {
-        return !bookingRepository.getPastBookingsForUserAndItem(userId, itemId, LocalDateTime.now()).isEmpty();
+        return !bookingRepository.getPastBookingsForUserAndItem(userId, itemId).isEmpty();
     }
 }

@@ -20,8 +20,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, ItemReposi
             "and i.available = true")
     List<Item> search(String string);
 
-    ItemShort getShortById(int id);
-
     @Query("select  new ru.practicum.shareit.item.dto.ItemDTO(i.id, i.name, i.description, i.available, i.requestId) " +
             "from Item as i " +
             "where i.requestId = ?1 " +
