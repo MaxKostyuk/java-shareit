@@ -1,5 +1,6 @@
 package ru.practicum.shareit.request.storage;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,6 @@ public interface ItemRequestRepository extends JpaRepository<ItemRequest, Intege
             "where ir.userId = ?1 " +
             "order by ir.created desc")
     List<ItemRequestDTO> getUserRequests(int userId);
+
+    List<ItemRequest> findAllByUserIdNot(int userId, Pageable pageable);
 }

@@ -1,6 +1,8 @@
 package ru.practicum.shareit.request.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.item.storage.ItemRepository;
 import ru.practicum.shareit.request.dto.ItemRequestDTO;
@@ -10,6 +12,7 @@ import ru.practicum.shareit.request.storage.ItemRequestRepository;
 import ru.practicum.shareit.user.storage.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +39,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     public List<ItemRequestDTO> getOtherRequests(int userId, int from, int size) {
-        return null;
+        List<ItemRequest> items = itemRequestRepository.findAllByUserIdNot(userId,
+                PageRequest.of(from / size, size, Sort.by("created").descending()));
+        return items.stream().map(ItemRequestMapper::toItemRequestDTO)
+                .peek(i -> i.setItems(itemRepository.getItemsByRequestId(i.getId())))
+                .collect(Collectors.toList());
     }
 
     @Override
