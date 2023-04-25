@@ -10,6 +10,7 @@ import ru.practicum.shareit.item.dto.ItemDTO;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +35,19 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<ItemDTO> getByUser(@RequestHeader(name = USER_ID) @Positive int userId) {
-        return itemService.getByUser(userId);
+    public List<ItemDTO> getByUser(@RequestHeader(name = USER_ID) @Positive int userId,
+                                   @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                   @RequestParam(defaultValue = "10") @Positive int size) {
+        return itemService.getByUser(userId, from, size);
     }
 
     @GetMapping("/search")
-    public List<ItemDTO> search(@RequestParam @NotBlank String text) {
+    public List<ItemDTO> search(@RequestParam @NotBlank String text,
+                                @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                @RequestParam(defaultValue = "10") @Positive int size) {
         if (text.isBlank())
             return new ArrayList<>();
-        return itemService.search(text);
+        return itemService.search(text, from, size);
     }
 
     @PatchMapping("/{id}")

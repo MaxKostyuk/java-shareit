@@ -1,6 +1,8 @@
 package ru.practicum.shareit.item.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
@@ -54,17 +56,18 @@ public class ItemServiceDbImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDTO> getByUser(int userId) {
+    public List<ItemDTO> getByUser(int userId, int from, int size) {
         userRepository.getUserById(userId);
-        return itemRepository.findByOwnerId(userId).stream()
+        return itemRepository.findByOwnerId(userId, PageRequest.of(from / size, size, Sort.by("id").ascending()))
+                .stream()
                 .map(ItemMapper::toItemDTO)
                 .peek(this::setBookingDates)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ItemDTO> search(String text) {
-        return itemRepository.search(text)
+    public List<ItemDTO> search(String text, int from, int size) {
+        return itemRepository.search(text, PageRequest.of(from / size, size, Sort.by("id").ascending()))
                 .stream().map(ItemMapper::toItemDTO).collect(Collectors.toList());
     }
 
