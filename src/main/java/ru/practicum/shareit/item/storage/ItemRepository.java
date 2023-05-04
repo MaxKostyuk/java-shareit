@@ -19,7 +19,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, ItemReposi
             "upper(i.name) like upper (concat('%', ?1, '%')) " +
             "or upper(i.description) like upper (concat('%', ?1, '%')) " +
             "and i.available = true")
-    List<Item> search(String string, PageRequest id);
+    List<Item> search(String string, Pageable page);
 
     @Query("select  new ru.practicum.shareit.item.dto.ItemDTO(i.id, i.name, i.description, i.available, i.requestId) " +
             "from Item as i " +
