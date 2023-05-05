@@ -50,7 +50,7 @@ public class RequestServiceTest {
     @BeforeEach
     void setUp() {
         itemRequest = new ItemRequest(VALID_ID, VALID_USER_ID, VALID_DESCRIPTION, time);
-        itemRequestDTO = new ItemRequestDTO(VALID_ID,VALID_DESCRIPTION, time);
+        itemRequestDTO = new ItemRequestDTO(VALID_ID, VALID_DESCRIPTION, time);
         itemDTO = new ItemDTO(VALID_ID, "name", "description", true, VALID_ID);
         itemRequestDTO.setItems(List.of(itemDTO));
     }
