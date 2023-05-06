@@ -32,14 +32,14 @@ public class RequestServiceTest {
     private static final int VALID_USER_ID = 1;
     private static final String VALID_DESCRIPTION = "description";
     @Mock
-    ItemRequestRepository itemRequestRepository;
+    private ItemRequestRepository itemRequestRepository;
     @Mock
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Mock
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @InjectMocks
-    ItemRequestServiceImpl itemRequestService;
+    private ItemRequestServiceImpl itemRequestService;
     private ItemRequest itemRequest;
     private ItemRequestDTO itemRequestDTO;
     private ItemRequestDTO returnedRequest;

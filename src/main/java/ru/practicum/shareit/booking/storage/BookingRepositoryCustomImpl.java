@@ -4,8 +4,6 @@ import org.springframework.context.annotation.Lazy;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exception.ElementNotFoundException;
 
-import java.time.LocalDateTime;
-
 public class BookingRepositoryCustomImpl implements BookingRepositoryCustom {
 
     private final BookingRepository bookingRepository;

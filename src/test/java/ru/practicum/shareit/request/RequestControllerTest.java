@@ -36,10 +36,10 @@ public class RequestControllerTest {
     private static final String INVALID_FROM = "-1";
     private static final String VALID_SIZE = "1";
     private static final String INVALID_SIZE = "0";
-    private final static int VALID_ID = 1;
-    private final static int INVALID_ID = 0;
-    private final static String VALID_DESCRIPTION = "description";
-    private final static String INVALID_DESCRIPTION = "   ";
+    private static final int VALID_ID = 1;
+    private static final int INVALID_ID = 0;
+    private static final String VALID_DESCRIPTION = "description";
+    private static final String INVALID_DESCRIPTION = "   ";
 
     @MockBean
     private ItemRequestService itemRequestServiceMock;

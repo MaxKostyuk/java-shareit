@@ -26,11 +26,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = UserController.class)
 public class UserControllerTest {
 
-    public static final String VALID_NAME = "name";
-    public static final String INVALID_NAME = "   ";
-    public static final String VALID_EMAIL = "ya@ya.ru";
-    public static final int VALID_USERID = 1;
-    public static final int INVALID_USERID = 0;
+    private static final String VALID_NAME = "name";
+    private static final String INVALID_NAME = "   ";
+    private static final String VALID_EMAIL = "ya@ya.ru";
+    private static final int VALID_USERID = 1;
+    private static final int INVALID_USERID = 0;
 
     @MockBean
     private UserService userServiceMock;

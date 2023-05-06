@@ -158,7 +158,7 @@ public class ItemServiceTest {
         item.setAvailable(false);
         assertEquals(itemCaptor.getValue(), item);
     }
-    
+
     @Test
     @DisplayName("Add comment all valid")
     void addComment_shouldReturnCommentDTO_allValid() {
