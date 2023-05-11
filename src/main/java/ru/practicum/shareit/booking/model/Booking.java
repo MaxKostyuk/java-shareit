@@ -31,9 +31,9 @@ public class Booking {
     @Column(name = "end_date", nullable = false)
     private LocalDateTime end;
     @Positive
-    @Column(nullable = false)
+    @Column(name = "item", nullable = false)
     private Integer itemId;
-    @Column(nullable = false)
+    @Column(name = "booker_id", nullable = false)
     private Integer bookerId;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 8)

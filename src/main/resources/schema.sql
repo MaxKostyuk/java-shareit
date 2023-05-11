@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP NOT NULL,
     item INTEGER NOT NULL,
-    bookerId INTEGER NOT NULL,
+    booker_id INTEGER NOT NULL,
     status VARCHAR(8) NOT NULL
 );
 
