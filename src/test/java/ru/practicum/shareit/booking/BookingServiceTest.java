@@ -111,8 +111,8 @@ public class BookingServiceTest {
         booking.setBookerId(OWNER_ID);
         when(itemRepository.getItemById(anyInt())).thenReturn(item);
 
-        assertThrows(ElementNotFoundException.class, () ->bookingService.create(booking));
-}
+        assertThrows(ElementNotFoundException.class, () -> bookingService.create(booking));
+    }
 
     @Test
     @DisplayName("Accept booking all valid")
@@ -139,8 +139,8 @@ public class BookingServiceTest {
         when(bookingRepository.getBookingById(anyInt())).thenReturn(booking);
         when(itemRepository.getItemById(anyInt())).thenReturn(item);
 
-        assertThrows(BadRequestException.class, () ->bookingService.acceptBooking(VALID_ID, OWNER_ID, true));
-}
+        assertThrows(BadRequestException.class, () -> bookingService.acceptBooking(VALID_ID, OWNER_ID, true));
+    }
 
     @Test
     @DisplayName("Get by id all valid")
