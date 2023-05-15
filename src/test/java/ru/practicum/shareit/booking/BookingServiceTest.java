@@ -134,8 +134,8 @@ public class BookingServiceTest {
     }
 
     @Test
-    @DisplayName("Get by booker id all valid")
-    void getByBookerId_shouldReturnListOfBookingDTO_allValid() {
+    @DisplayName("Get all by booker id all valid")
+    void getByBookerId_all_shouldReturnListOfBookingDTO_allValid() {
         when(bookingRepository.getAllByBookerId(anyInt(), any(Pageable.class)))
                 .thenReturn(List.of(bookingDTO));
 
@@ -149,8 +149,68 @@ public class BookingServiceTest {
     }
 
     @Test
-    @DisplayName("Get by owner id all valid")
-    void getByOwnerId_shouldReturnListOfBookingDTO_allValid() {
+    @DisplayName("Get current by booker id all valid")
+    void getByBookerId_current_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getCurrentByBookerId(anyInt(), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByBookerId(VALID_USER_ID, "CURRENT", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getCurrentByBookerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get past by booker id all valid")
+    void getByBookerId_past_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getPastByBookerId(anyInt(), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByBookerId(VALID_USER_ID, "PAST", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getPastByBookerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get future by booker id all valid")
+    void getByBookerId_future_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getFutureByBookerId(anyInt(), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByBookerId(VALID_USER_ID, "FUTURE", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getFutureByBookerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get waiting by booker id all valid")
+    void getByBookerId_waiting_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getByStatusAndBookerId(anyInt(), any(BookingStatus.class), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByBookerId(VALID_USER_ID, "WAITING", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getByStatusAndBookerId(anyInt(), any(BookingStatus.class), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get all by owner id all valid")
+    void getByOwnerId_all_shouldReturnListOfBookingDTO_allValid() {
         when(bookingRepository.getAllByOwnerId(anyInt(), any(Pageable.class)))
                 .thenReturn(List.of(bookingDTO));
 
@@ -160,6 +220,66 @@ public class BookingServiceTest {
         assertEquals(returnedList.get(0), bookingDTO);
 
         verify(bookingRepository, times(1)).getAllByOwnerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get current by owner id all valid")
+    void getByOwnerId_current_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getCurrentByOwnerId(anyInt(), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByOwnerId(VALID_USER_ID, "CURRENT", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getCurrentByOwnerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get past by owner id all valid")
+    void getByOwnerId_past_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getPastByOwnerId(anyInt(), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByOwnerId(VALID_USER_ID, "PAST", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getPastByOwnerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get future by owner id all valid")
+    void getByOwnerId_future_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getFutureByOwnerId(anyInt(), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByOwnerId(VALID_USER_ID, "FUTURE", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getFutureByOwnerId(anyInt(), any(Pageable.class));
+        verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get waiting by owner id all valid")
+    void getByOwnerId_waiting_shouldReturnListOfBookingDTO_allValid() {
+        when(bookingRepository.getByStatusAndOwnerId(anyInt(), any(BookingStatus.class), any(Pageable.class)))
+                .thenReturn(List.of(bookingDTO));
+
+        returnedList = bookingService.getByOwnerId(VALID_USER_ID, "WAITING", 0, 10);
+
+        assertEquals(returnedList.size(), 1);
+        assertEquals(returnedList.get(0), bookingDTO);
+
+        verify(bookingRepository, times(1)).getByStatusAndOwnerId(anyInt(), any(BookingStatus.class), any(Pageable.class));
         verifyNoMoreInteractions(bookingRepository);
     }
 }
