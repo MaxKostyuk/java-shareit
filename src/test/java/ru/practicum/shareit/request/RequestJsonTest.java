@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
-import ru.practicum.shareit.request.dto.ItemRequestDTO;
 import ru.practicum.shareit.request.model.ItemRequest;
-import ru.practicum.shareit.user.dto.UserDTO;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -39,7 +37,7 @@ public class RequestJsonTest {
     @Test
     void deserialize_shouldReturnItemRequest_allValid() throws IOException {
         ItemRequest expectedRequest = new ItemRequest(1, 1, "item description", LocalDateTime.of(2012, 12, 12, 12, 12));
-        String jsonInptut ="{\"id\":1,\"description\":\"item description\"," +
+        String jsonInptut = "{\"id\":1,\"description\":\"item description\"," +
                 "\"userId\":1,\"created\":\"2012-12-12T12:12:00\"}";
 
         ItemRequest returnedRequest = json.parse(jsonInptut).getObject();
