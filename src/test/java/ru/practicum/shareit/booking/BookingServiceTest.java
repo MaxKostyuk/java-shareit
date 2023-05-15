@@ -13,6 +13,10 @@ import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.booking.service.BookingServiceImpl;
 import ru.practicum.shareit.booking.storage.BookingRepository;
+import ru.practicum.shareit.exception.AccessForbiddenException;
+import ru.practicum.shareit.exception.BadRequestException;
+import ru.practicum.shareit.exception.ElementNotFoundException;
+import ru.practicum.shareit.exception.UnknownStatusException;
 import ru.practicum.shareit.item.dto.ItemShortDTO;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.storage.ItemRepository;
@@ -23,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -101,6 +106,15 @@ public class BookingServiceTest {
     }
 
     @Test
+    @DisplayName("Create booker is owner")
+    void create_shouldThrowException_bookerIsOwner() {
+        booking.setBookerId(OWNER_ID);
+        when(itemRepository.getItemById(anyInt())).thenReturn(item);
+
+        assertThrows(ElementNotFoundException.class, () ->bookingService.create(booking));
+}
+
+    @Test
     @DisplayName("Accept booking all valid")
     void acceptBooking_shouldReturnBookingDTO_allValid() {
         when(bookingRepository.getBookingById(anyInt())).thenReturn(booking);
@@ -119,6 +133,16 @@ public class BookingServiceTest {
     }
 
     @Test
+    @DisplayName("Accept booking already accepted")
+    void acceptBooking_shouldThrowException_bookingAlreadyAccepted() {
+        booking.setStatus(BookingStatus.APPROVED);
+        when(bookingRepository.getBookingById(anyInt())).thenReturn(booking);
+        when(itemRepository.getItemById(anyInt())).thenReturn(item);
+
+        assertThrows(BadRequestException.class, () ->bookingService.acceptBooking(VALID_ID, OWNER_ID, true));
+}
+
+    @Test
     @DisplayName("Get by id all valid")
     void getById_shouldReturnBookingDTO_allValid() {
         when(bookingRepository.getBookingById(anyInt())).thenReturn(booking);
@@ -131,6 +155,15 @@ public class BookingServiceTest {
         verifyNoMoreInteractions(bookingRepository);
         verify(itemRepository, times(1)).getItemById(anyInt());
         verifyNoMoreInteractions(itemRepository);
+    }
+
+    @Test
+    @DisplayName("Get by id user not acceptable")
+    void getById_shouldThrowException_userNotAcceptable() {
+        when(bookingRepository.getBookingById(anyInt())).thenReturn(booking);
+        when(itemRepository.getItemById(anyInt())).thenReturn(item);
+
+        assertThrows(AccessForbiddenException.class, () -> bookingService.getById(VALID_ID, 3));
     }
 
     @Test
@@ -209,6 +242,12 @@ public class BookingServiceTest {
     }
 
     @Test
+    @DisplayName("Get by booker id invalid status")
+    void getByBookerId_shouldThrowException_statusInvalid() {
+        assertThrows(UnknownStatusException.class, () -> bookingService.getByBookerId(VALID_USER_ID, "UNKNOWN", 0, 10));
+    }
+
+    @Test
     @DisplayName("Get all by owner id all valid")
     void getByOwnerId_all_shouldReturnListOfBookingDTO_allValid() {
         when(bookingRepository.getAllByOwnerId(anyInt(), any(Pageable.class)))
@@ -281,5 +320,11 @@ public class BookingServiceTest {
 
         verify(bookingRepository, times(1)).getByStatusAndOwnerId(anyInt(), any(BookingStatus.class), any(Pageable.class));
         verifyNoMoreInteractions(bookingRepository);
+    }
+
+    @Test
+    @DisplayName("Get by owner id invalid status")
+    void getByOwnerId_shouldThrowException_statusInvalid() {
+        assertThrows(UnknownStatusException.class, () -> bookingService.getByOwnerId(VALID_USER_ID, "UNKNOWN", 0, 10));
     }
 }
