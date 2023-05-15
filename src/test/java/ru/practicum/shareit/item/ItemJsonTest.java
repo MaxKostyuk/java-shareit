@@ -46,8 +46,8 @@ public class ItemJsonTest {
         String jsonInput = "{\"id\":1,\"name\":\"item name\",\"description\":\"item description\"," +
                 "\"available\":true, \"requestId\":2}";
 
-        ItemDTO returnedUser = json.parse(jsonInput).getObject();
+        ItemDTO returnedItem = json.parse(jsonInput).getObject();
 
-        assertEquals(expectedItem, returnedUser);
+        assertEquals(expectedItem, returnedItem);
     }
 }
