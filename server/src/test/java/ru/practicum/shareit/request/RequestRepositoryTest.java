@@ -24,8 +24,6 @@ public class RequestRepositoryTest {
     private ItemRequestRepository requestRepository;
 
     private ItemRequest itemRequest;
-    private ItemRequestDTO itemRequestDTO;
-    private List<ItemRequestDTO> returnedRequests;
     private final LocalDateTime created = LocalDateTime.now();
 
     @BeforeEach
@@ -39,9 +37,9 @@ public class RequestRepositoryTest {
     @Test
     @DisplayName("Get user request all valid")
     void getUserRequest_shouldReturnListOfItemRequestDTO_allValid() {
-        itemRequestDTO = ItemRequestMapper.toItemRequestDTO(requestRepository.save(itemRequest));
+        ItemRequestDTO itemRequestDTO = ItemRequestMapper.toItemRequestDTO(requestRepository.save(itemRequest));
 
-        returnedRequests = requestRepository.getUserRequests(USER_ID);
+        List<ItemRequestDTO> returnedRequests = requestRepository.getUserRequests(USER_ID);
         returnedRequests.get(0).setCreated(created);
 
         assertEquals(returnedRequests.size(), 1);
