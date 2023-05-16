@@ -11,9 +11,9 @@ public interface ItemService {
 
     ItemDTO getById(int id, int userId);
 
-    List<ItemDTO> getByUser(int userId);
+    List<ItemDTO> getByUser(int userId, int from, int size);
 
-    List<ItemDTO> search(String text);
+    List<ItemDTO> search(String text, int from, int size);
 
     ItemDTO update(ItemDTO itemDTO, int userId);
 

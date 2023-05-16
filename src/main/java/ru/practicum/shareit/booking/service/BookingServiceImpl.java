@@ -1,6 +1,9 @@
 package ru.practicum.shareit.booking.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dto.BookingDTO;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
@@ -16,7 +19,6 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.storage.ItemRepository;
 import ru.practicum.shareit.user.storage.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,42 +63,42 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> getByBookerId(int userId, String state) {
+    public List<BookingDTO> getByBookerId(int userId, String state, int from, int size) {
         userRepository.getUserById(userId);
-        LocalDateTime time = LocalDateTime.now();
+        Pageable page = PageRequest.of(from / size, size, Sort.by("start").descending());
         switch (state) {
             case "ALL":
-                return bookingRepository.getAllByBookerId(userId);
+                return bookingRepository.getAllByBookerId(userId, page);
             case "CURRENT":
-                return bookingRepository.getCurrentByBookerId(userId, time);
+                return bookingRepository.getCurrentByBookerId(userId, page);
             case "PAST":
-                return bookingRepository.getPastByBookerId(userId, time);
+                return bookingRepository.getPastByBookerId(userId, page);
             case "FUTURE":
-                return bookingRepository.getFutureByBookerId(userId, time);
+                return bookingRepository.getFutureByBookerId(userId, page);
             case "WAITING":
             case "REJECTED":
-                return bookingRepository.getByStatusAndBookerId(userId, BookingStatus.valueOf(state));
+                return bookingRepository.getByStatusAndBookerId(userId, BookingStatus.valueOf(state), page);
             default:
                 throw new UnknownStatusException(String.format("Unknown state: %s", state));
         }
     }
 
     @Override
-    public List<BookingDTO> getByOwnerId(int ownerId, String state) {
+    public List<BookingDTO> getByOwnerId(int ownerId, String state, int from, int size) {
         userRepository.getUserById(ownerId);
-        LocalDateTime time = LocalDateTime.now();
+        Pageable page = PageRequest.of(from / size, size, Sort.by("start").descending());
         switch (state) {
             case "ALL":
-                return bookingRepository.getAllByOwnerId(ownerId);
+                return bookingRepository.getAllByOwnerId(ownerId, page);
             case "CURRENT":
-                return bookingRepository.getCurrentByOwnerId(ownerId, time);
+                return bookingRepository.getCurrentByOwnerId(ownerId, page);
             case "PAST":
-                return bookingRepository.getPastByOwnerId(ownerId, time);
+                return bookingRepository.getPastByOwnerId(ownerId, page);
             case "FUTURE":
-                return bookingRepository.getFutureByOwnerId(ownerId, time);
+                return bookingRepository.getFutureByOwnerId(ownerId, page);
             case "WAITING":
             case "REJECTED":
-                return bookingRepository.getByStatusAndOwnerId(ownerId, BookingStatus.valueOf(state));
+                return bookingRepository.getByStatusAndOwnerId(ownerId, BookingStatus.valueOf(state), page);
             default:
                 throw new UnknownStatusException(String.format("Unknown state: %s", state));
         }

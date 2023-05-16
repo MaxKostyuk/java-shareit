@@ -9,6 +9,7 @@ import ru.practicum.shareit.booking.service.BookingService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Validated
@@ -22,7 +23,7 @@ public class BookingController {
 
     @PostMapping
     public BookingDTO create(@RequestBody @Valid Booking booking,
-                             @RequestHeader(name = USER_ID) int userId) {
+                             @RequestHeader(name = USER_ID) @Positive int userId) {
         booking.setBookerId(userId);
         return bookingService.create(booking);
     }
@@ -41,14 +42,18 @@ public class BookingController {
     }
 
     @GetMapping
-    public List<BookingDTO> getByBookerId(@RequestHeader(name = USER_ID) int bookerId,
-                                          @RequestParam(defaultValue = "ALL") String state) {
-        return bookingService.getByBookerId(bookerId, state);
+    public List<BookingDTO> getByBookerId(@RequestHeader(name = USER_ID) @Positive int bookerId,
+                                          @RequestParam(defaultValue = "ALL") String state,
+                                          @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                          @RequestParam(defaultValue = "10") @Positive int size) {
+        return bookingService.getByBookerId(bookerId, state, from, size);
     }
 
     @GetMapping("/owner")
     public List<BookingDTO> getByOwnerId(@RequestParam(defaultValue = "ALL") String state,
-                                         @RequestHeader(name = USER_ID) @Positive int ownerId) {
-        return bookingService.getByOwnerId(ownerId, state);
+                                         @RequestHeader(name = USER_ID) @Positive int ownerId,
+                                         @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                         @RequestParam(defaultValue = "10") @Positive int size) {
+        return bookingService.getByOwnerId(ownerId, state, from, size);
     }
 }

@@ -1,8 +1,10 @@
 package ru.practicum.shareit.user.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public class UserShortDTO {
     private int id;
 

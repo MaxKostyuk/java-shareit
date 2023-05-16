@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ConstraintViolationException;
+
 @ControllerAdvice
 public class CustomExceptionHandler {
 
@@ -34,4 +36,10 @@ public class CustomExceptionHandler {
     public ResponseEntity<ErrorMessage> unknownStatusHandler(UnknownStatusException e) {
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public void constraintViolationExceptionHandler(ConstraintViolationException e) {
+    }
+
 }

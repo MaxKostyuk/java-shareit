@@ -26,5 +26,7 @@ public class Item {
     private Boolean available;
     @Column(nullable = false)
     private int ownerId;
+    @Column(name = "request_id")
+    private int requestId;
 
 }
