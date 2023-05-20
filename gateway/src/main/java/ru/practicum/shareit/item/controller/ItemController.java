@@ -66,7 +66,7 @@ public class ItemController {
         return itemClient.updateItem(itemDto, id, userId);
     }
 
-    @PatchMapping("/{id}/comment")
+    @PostMapping("/{id}/comment")
     public ResponseEntity<Object> addComment(@RequestBody @Valid CommentDto commentDto,
                                              @PathVariable @Positive int id,
                                              @RequestHeader(name = USER_ID) @Positive Long userId) {
