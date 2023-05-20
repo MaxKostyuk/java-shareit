@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
-@Validated
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -26,7 +25,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping
-    public ItemDTO create(@RequestBody @Valid ItemDTO itemDTO, @RequestHeader(name = USER_ID) @Positive int userId) {
+    public ItemDTO create(@RequestBody ItemDTO itemDTO,
+                          @RequestHeader(name = USER_ID) @Positive int userId) {
         return itemService.create(itemDTO, userId);
     }
 
@@ -63,7 +63,7 @@ public class ItemController {
     @PostMapping("/{id}/comment")
     public CommentDTO addComment(@PathVariable @Positive int id,
                                  @RequestHeader(name = USER_ID) @Positive int userId,
-                                 @RequestBody @Valid Comment comment) {
+                                 @RequestBody Comment comment) {
         comment.setItem(id);
         comment.setAuthor(userId);
         comment.setCreated(LocalDateTime.now());

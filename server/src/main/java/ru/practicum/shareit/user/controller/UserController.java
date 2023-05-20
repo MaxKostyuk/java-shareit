@@ -13,13 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/users")
 @RequiredArgsConstructor
-@Validated
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
-    public UserDTO create(@Valid @RequestBody UserDTO userDTO) {
+    public UserDTO create(@RequestBody UserDTO userDTO) {
         return userService.create(userDTO);
     }
 
@@ -34,7 +33,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public UserDTO update(@RequestBody UserDTO userDTO, @PathVariable @Positive int id) {
+    public UserDTO update(@RequestBody UserDTO userDTO,
+                          @PathVariable @Positive int id) {
         userDTO.setId(id);
         return userService.update(userDTO);
     }

@@ -12,7 +12,6 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/bookings")
@@ -22,7 +21,7 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping
-    public BookingDTO create(@RequestBody @Valid Booking booking,
+    public BookingDTO create(@RequestBody Booking booking,
                              @RequestHeader(name = USER_ID) @Positive int userId) {
         booking.setBookerId(userId);
         return bookingService.create(booking);

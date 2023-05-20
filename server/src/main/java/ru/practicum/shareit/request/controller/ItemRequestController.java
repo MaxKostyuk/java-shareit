@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/requests")
-@Validated
 @RequiredArgsConstructor
 public class ItemRequestController {
 
@@ -23,7 +22,7 @@ public class ItemRequestController {
     private final ItemRequestService requestService;
 
     @PostMapping
-    public ItemRequestDTO create(@RequestBody @Valid ItemRequest itemRequest,
+    public ItemRequestDTO create(@RequestBody ItemRequest itemRequest,
                                  @RequestHeader(name = USER_ID) @ Positive int userId) {
         itemRequest.setUserId(userId);
         itemRequest.setCreated(LocalDateTime.now());
