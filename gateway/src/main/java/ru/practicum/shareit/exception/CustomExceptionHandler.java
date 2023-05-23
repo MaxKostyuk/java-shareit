@@ -15,7 +15,9 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void validationExceptionHandler(Exception e) {
+    @ResponseBody
+    public Map<String, String> validationExceptionHandler(Exception e) {
+        return Map.of("error", e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
