@@ -1,0 +1,41 @@
+version: '3.3'
+services:
+  gateway:
+    build: gateway
+    image: shareit-gateway
+    container_name: shareit-gateway
+    ports:
+      - "8080:8080"
+      - "5555:8081"
+    depends_on:
+      - server
+    environment:
+      - SHAREIT_SERVER_URL=http://server:9090
+      - JAVA_TOOL_OPTION=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*8081
+#      - TZ=Asia/Bishkek
+
+  server:
+    build: server
+    image: shareit-server
+    container_name: shareit-server
+    ports:
+      - "9090:9090"
+      - "7777:8081"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shareit
+      - SPRING_DATASOURCE_USER=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - JAVA_TOOL_OPTION=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*8081
+#      - TZ=Asia/Bishkek
+  db:
+    image: postgres:14-alpine
+    container_name: db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=shareit
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+#      - TZ=Asia/Bishkek
