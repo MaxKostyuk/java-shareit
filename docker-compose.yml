@@ -12,7 +12,7 @@ services:
     environment:
       - SHAREIT_SERVER_URL=http://server:9090
       - JAVA_TOOL_OPTION=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*8081
-      - TZ=Asia/Bishkek
+#      - TZ=Asia/Bishkek
 
   server:
     build: server
@@ -28,7 +28,7 @@ services:
       - SPRING_DATASOURCE_USER=root
       - SPRING_DATASOURCE_PASSWORD=root
       - JAVA_TOOL_OPTION=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*8081
-      - TZ=Asia/Bishkek
+#      - TZ=Asia/Bishkek
   db:
     image: postgres:14-alpine
     container_name: db
@@ -38,4 +38,4 @@ services:
       - POSTGRES_DB=shareit
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - TZ=Asia/Bishkek
+#      - TZ=Asia/Bishkek
